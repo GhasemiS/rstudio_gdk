@@ -1,12 +1,12 @@
 # RStudio on GenomeDK Desktop
 
-Scripts to launch RStudio Desktop as a native window on [desktop.genome.au.dk](https://desktop.genome.au.dk), running on a Slurm compute node. No browser, no tunnels, no containers — just RStudio.
+Scripts to launch RStudio Desktop as a native window on [desktop.genome.au.dk](https://desktop.genome.au.dk), running on a Slurm compute node.
 
 ---
 
 ## How it works
 
-RStudio runs inside a conda environment on a Slurm compute node. The launch script requests the job inside a tmux session (so it survives accidental terminal closure), activates the environment, and opens RStudio as a normal desktop window.
+RStudio runs inside a conda environment on a Slurm compute node. The launch script requests the job inside a tmux session (so it survives accidental terminal closure), activates the environment, and opens RStudio as a desktop window.
 
 ---
 
@@ -39,13 +39,26 @@ Say **yes** to initialising conda, then close and reopen your terminal.
 
 Pre-installed on GenomeDK — nothing to do.
 
-### A shared project folder
+### A project folder
 
-Put both scripts in a shared folder so all lab members can use them:
+Put both scripts in a your project folder:
 ```
 /faststorage/project/YOUR_PROJECT/rstudio/
 ```
 
+
+---
+ 
+## Download the scripts
+ 
+On the GenomeDK Desktop, open a terminal, go to your shared project folder, and download both scripts with `wget`:
+ 
+```bash
+cd /faststorage/project/YOUR_PROJECT/rstudio
+wget https://raw.githubusercontent.com/ghasemis/rstudio_gdk/main/rstudio_setup_desktop.sh
+wget https://raw.githubusercontent.com/ghasemis/rstudio_gdk/main/rstudio_launch_desktop.sh
+```
+ 
 ---
 
 ## Usage
@@ -60,17 +73,16 @@ Go to [desktop.genome.au.dk](https://desktop.genome.au.dk), log in, and open a t
 cd /faststorage/project/YOUR_PROJECT/rstudio
 ```
 
-### Step 3 — Set your project name
+### Step 3 — Set your project name (one time only)
 
 Before running anything, open `rstudio_launch_desktop.sh` in a text editor and change the `SLURM_ACCOUNT` line to your own GenomeDK project name:
 
 ```bash
-SLURM_ACCOUNT="NDDgenomics"   # ← change this to your project name
+SLURM_ACCOUNT="YOUR_PROJECT"   # ← change this to your project name
 ```
 
-You can find your project name by running `ls /faststorage/project/` on GenomeDK.
 
-### Step 4 — Run setup (first time only)
+### Step 4 — Run setup (one time only)
 
 ```bash
 bash rstudio_setup_desktop.sh
@@ -113,7 +125,7 @@ tmux attach -t rstudio
 Edit the top section of `rstudio_launch_desktop.sh`:
 
 ```bash
-SLURM_ACCOUNT="NDDgenomics"   # your GenomeDK project name
+SLURM_ACCOUNT="YOUR_PROJECT"   # your GenomeDK project name
 SLURM_CORES=8                 # CPU cores
 SLURM_MEM="128g"              # RAM
 SLURM_TIME="10:00:00"         # wall time (hh:mm:ss)
@@ -137,6 +149,5 @@ CONDA_ENV_NAME="rstudio_env"  # conda environment name
 
 ## Notes
 
-- The conda environment is created in your home directory (`~/.conda/envs/rstudio_env`) and is personal to each user, but the scripts themselves are shared.
 - If you already have a conda environment with R, set `CONDA_ENV_NAME` to its name in `rstudio_launch_desktop.sh` and skip the setup script.
 - For reproducible package management within R projects, use `renv` — it is included in the environment.
