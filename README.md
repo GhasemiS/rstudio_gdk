@@ -60,7 +60,17 @@ Go to [desktop.genome.au.dk](https://desktop.genome.au.dk), log in, and open a t
 cd /faststorage/project/YOUR_PROJECT/rstudio
 ```
 
-### Step 3 — Run setup (first time only)
+### Step 3 — Set your project name
+
+Before running anything, open `rstudio_launch_desktop.sh` in a text editor and change the `SLURM_ACCOUNT` line to your own GenomeDK project name:
+
+```bash
+SLURM_ACCOUNT="NDDgenomics"   # ← change this to your project name
+```
+
+You can find your project name by running `ls /faststorage/project/` on GenomeDK.
+
+### Step 4 — Run setup (first time only)
 
 ```bash
 bash rstudio_setup_desktop.sh
@@ -73,7 +83,7 @@ This creates a conda environment called `rstudio_env` with:
 
 Takes a few minutes. Safe to re-run — skips steps already done.
 
-### Step 4 — Launch RStudio
+### Step 5 — Launch RStudio
 
 ```bash
 bash rstudio_launch_desktop.sh
