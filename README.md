@@ -67,8 +67,7 @@ wget https://raw.githubusercontent.com/ghasemis/rstudio_gdk/main/rstudio_launch_
 
 Go to [desktop.genome.au.dk](https://desktop.genome.au.dk), log in, and open a terminal.
 
-### Step 2 — Go to the shared scripts folder
-
+### Step 2 — Go to the folder where you downloaded the files
 ```bash
 cd /faststorage/project/YOUR_PROJECT/rstudio
 ```
