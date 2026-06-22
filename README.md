@@ -1,4 +1,4 @@
-# RStudio Server on GenomeDK
+# RStudio on GenomeDK
 
 Scripts to launch RStudio Server on the [GenomeDK HPC cluster](https://genome.au.dk) via a Singularity container, with no X11 forwarding and no manual tunnelling — just a browser tab.
 
@@ -34,24 +34,16 @@ Follow the prompts and say **yes** to initialising conda. Then close and reopen 
 
 ### 2. Singularity
 
-Used to run the RStudio container. Singularity is already installed as a module on GenomeDK. Load it once per session or add it to your `~/.bashrc`:
+Used to run the RStudio container. Singularity is already installed on GenomeDK. 
 
-```bash
-module load singularity
-```
-
-To make it permanent so it loads every login:
-```bash
-echo "module load singularity" >> ~/.bashrc
-```
 
 ### 3. tmux
 
 Used to keep the RStudio session alive even if the terminal window is accidentally closed. tmux is pre-installed on GenomeDK — no action needed.
 
-### 4. A shared project folder on GenomeDK
+### 4. A project folder on GenomeDK
 
-The scripts and the downloaded container (~1 GB) should live in a shared project folder so any lab member can use them without each person downloading the container separately. For example:
+The scripts and the downloaded container (~1 GB) should live in a project folder:
 
 ```
 /faststorage/project/YOUR_PROJECT/rstudio/
@@ -90,7 +82,7 @@ bash rstudio_setup_desktop.sh
 
 This will:
 - Find your conda installation
-- Create the `ABC9rstudio` conda environment with R 4.4.2, tidyverse, ggplot2, and renv
+- Create the `rstudio_env` conda environment with R 4.4.2, tidyverse, ggplot2, and renv
 - Download the RStudio Singularity container (~1 GB — takes a few minutes)
 - Create the config files RStudio Server needs
 
@@ -115,7 +107,7 @@ Wait about 30–60 seconds for the job to be allocated and RStudio to start. Fir
 ## Stopping RStudio
 
 1. Close the RStudio browser tab.
-2. Attach to the tmux session and press `Ctrl+C`:
+2. Attach to the tmux session and press `Ctrl+\`:
    ```bash
    tmux attach -t rstudio
    ```
@@ -128,11 +120,11 @@ Wait about 30–60 seconds for the job to be allocated and RStudio to start. Fir
 Open `rstudio_launch_desktop.sh` in a text editor and change the values at the top:
 
 ```bash
-SLURM_ACCOUNT="NDDgenomics"   # your GenomeDK project name
+SLURM_ACCOUNT="YOUR_PROJECT"   # your GenomeDK project name
 SLURM_CORES=8                 # number of CPU cores
 SLURM_MEM="128g"              # RAM
 SLURM_TIME="10:00:00"         # wall time (hh:mm:ss)
-CONDA_ENV_NAME="ABC9rstudio"  # conda environment to activate
+CONDA_ENV_NAME="rstudio_env"  # conda environment to activate
 ```
 
 If you already have your own conda environment with R, set `CONDA_ENV_NAME` to its name instead.
@@ -166,7 +158,7 @@ RStudio will start in the directory where the script lives. To use a project-spe
 
 RStudio is deployed via the [rocker/rstudio](https://rocker-project.org) Docker image, pulled and run as a Singularity container. This avoids the display incompatibilities of X11-forwarded RStudio Desktop and the dependency conflicts of conda-installed RStudio. The conda environment provides the R installation and packages that RStudio Server uses; Singularity provides the server process itself.
 
-The R environment (`ABC9rstudio`) is defined in a `.yml` file maintained at [AU-ABC/AU-ABC.github.io](https://github.com/AU-ABC/AU-ABC.github.io) and includes:
+The R environment (`rstudio_env`) is defined in a `.yml` file maintained at [github.com/ghasemis/rstudiogdk]([https://github.com/ghasemis/rstudiogdk](https://raw.githubusercontent.com/GhasemiS/rstudio_gdk/refs/heads/main/rstudio_env.yml)) and includes:
 - R 4.4.2
 - tidyverse
 - ggplot2
