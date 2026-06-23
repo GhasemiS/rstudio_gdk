@@ -14,7 +14,7 @@ RStudio runs inside a conda environment on a Slurm compute node. The launch scri
 
 | File | Run when |
 |---|---|
-| `rstudio_setup_desktop.sh` | **Once** per user — creates the conda environment |
+| `rstudio_setup_desktop.sh` | **Once** per user | Creates the conda environment |
 | `rstudio_launch_desktop.sh` | Every time you want RStudio |
 
 ---
@@ -37,7 +37,7 @@ Say **yes** to initialising conda, then close and reopen your terminal.
 
 ### tmux
 
-Pre-installed on GenomeDK — nothing to do.
+Pre-installed on GenomeDK, nothing to do.
 
 ### A project folder
 
@@ -63,16 +63,16 @@ wget https://raw.githubusercontent.com/ghasemis/rstudio_gdk/main/rstudio_launch_
 
 ## Usage
 
-### Step 1 — Open the GenomeDK Desktop
+### Step 1: Open the GenomeDK Desktop
 
 Go to [desktop.genome.au.dk](https://desktop.genome.au.dk), log in, and open a terminal.
 
-### Step 2 — Go to the folder where you downloaded the files
+### Step 2: Go to the folder where you downloaded the files
 ```bash
 cd /faststorage/project/YOUR_PROJECT/rstudio
 ```
 
-### Step 3 — Set your project name (one time only)
+### Step 3: Set your project name (one time only)
 
 Before running anything, open `rstudio_launch_desktop.sh` in a text editor and change the `SLURM_ACCOUNT` line to your own GenomeDK project name:
 
@@ -81,7 +81,7 @@ SLURM_ACCOUNT="YOUR_PROJECT"   # ← change this to your project name
 ```
 
 
-### Step 4 — Run setup (one time only)
+### Step 4: Run setup (one time only)
 
 ```bash
 bash rstudio_setup_desktop.sh
@@ -92,9 +92,9 @@ This creates a conda environment called `rstudio_env` with:
 - RStudio Desktop
 - tidyverse, ggplot2, renv
 
-Takes a few minutes. Safe to re-run — skips steps already done.
+Takes a few minutes. Safe to re-run, skips steps already done.
 
-### Step 5 — Launch RStudio
+### Step 5: Launch RStudio
 
 ```bash
 bash rstudio_launch_desktop.sh
@@ -138,9 +138,9 @@ CONDA_ENV_NAME="rstudio_env"  # conda environment name
 | Problem | Fix |
 |---|---|
 | `conda: command not found` | Install Miniconda (see Prerequisites) and reopen the terminal |
-| RStudio window doesn't appear | The job may still be queued — run `tmux attach -t rstudio` to watch progress |
+| RStudio window doesn't appear | The job may still be queued, run `tmux attach -t rstudio` to watch progress |
 | RStudio crashes on startup | Try `conda update -n rstudio_env rstudio-desktop` to get the latest version |
-| Job runs but RStudio won't open | Make sure you are on the **desktop** (`desktop.genome.au.dk`) not a plain SSH session — a display is required |
+| Job runs but RStudio won't open | Make sure you are on the **desktop** (`desktop.genome.au.dk`) not a plain SSH session, a display is required |
 | Want to check what's running | `tmux attach -t rstudio` shows the live log |
 | Want a longer session | Change `SLURM_TIME` in `rstudio_launch_desktop.sh` |
 
