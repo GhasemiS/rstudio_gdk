@@ -148,5 +148,6 @@ CONDA_ENV_NAME="rstudio_env"  # conda environment name
 
 ## Notes
 
-- If you already have a conda environment with R, set `CONDA_ENV_NAME` to its name in `rstudio_launch_desktop.sh` and skip the setup script.
-- For reproducible package management within R projects, use `renv` — it is included in the environment.
+- If you already have a conda environment with R and Rstudio, set `CONDA_ENV_NAME` to its name in `rstudio_launch_desktop.sh` and skip the setup script.
+- For reproducible package management within R projects, use `renv`. It is included in the environment.
+- For datasets over 200k cells you should rise SLURM_MEM to 256g
